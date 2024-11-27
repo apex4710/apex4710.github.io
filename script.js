@@ -541,29 +541,28 @@ document.addEventListener("DOMContentLoaded", function() {
         doc.text("Points Table", 105, y, null, null, "center");
         y += 10;
     
-        const tableBody = Array.from(document.querySelectorAll('#pointsTable tbody tr')).map(row => 
-            Array.from(row.cells).map(cell => cell.innerText)
-        );
+        const tableBody = Array.from(document.querySelectorAll('#pointsTable tbody tr')).map((row, rowIndex) => {
+            const rowData = Array.from(row.cells).map(cell => cell.innerText);
+            return [
+                {
+                    content: '',
+                    styles: {
+                        fillColor: rowIndex < 8 ? [0, 255, 0] : rowIndex < 24 ? [255, 215, 0] : [255, 0, 0]
+                    }
+                },
+                ...rowData
+            ];
+        });
     
         doc.autoTable({
             startY: y,
-            head: [['Position', 'Team', 'Played', 'Won', 'Drawn', 'Lost', 'Goals For', 'Goals Against', 'Goal Difference', 'Points']],
-            body: tableBody,
-            didDrawCell: function(data) {
-                const rowIndex = data.row.index;
-                if (rowIndex < 8) { // Top 8
-                    doc.setFillColor(0, 255, 0); // Green
-                } else if (rowIndex < 24) { // 9 to 24
-                    doc.setFillColor(255, 215, 0); // Yellow
-                } else { // 25 to 36
-                    doc.setFillColor(255, 0, 0); // Red
-                }
-                doc.rect(data.cell.x - 5, data.cell.y, 5, data.cell.height, 'F');
-            }
+            head: [['', 'Position', 'Team', 'Played', 'Won', 'Drawn', 'Lost', 'Goals For', 'Goals Against', 'Goal Difference', 'Points']],
+            body: tableBody
         });
     
         doc.save('ChampionsLeaguePredictions.pdf');
     }
+    
     
 
     document.getElementById('exportPDFButton').addEventListener('click', exportToPDF);
