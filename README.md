@@ -42,7 +42,7 @@ The points table is sorted using the following League Phase Tiebreakers:
 
 ## Disclaimer
 
-The results are updated through Matchday 4.
+The results are updated through Matchday 5.
 
 ## Credits
 
