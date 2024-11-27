@@ -498,49 +498,59 @@ document.addEventListener("DOMContentLoaded", function() {
     const { jsPDF } = window.jspdf;
 
     function exportToPDF() {
-        console.log("Export to PDF function triggered");
-        const doc = new jsPDF();
+    const doc = new jsPDF();
 
-        let y = 10;
-        doc.setFontSize(18);
-        doc.text("UEFA Champions League Predictor", 105, y, null, null, "center");
-        y += 10;
+    let y = 10;
+    doc.setFontSize(18);
+    doc.text("UEFA Champions League Predictor", 105, y, null, null, "center");
+    y += 10;
 
+    doc.setFontSize(14);
+    doc.text("Fixtures", 105, y, null, null, "center");
+    y += 10;
+
+    // Add matchday and fixtures to the PDF
+    Object.keys(matchdays).forEach(matchday => {
         doc.setFontSize(14);
-        doc.text("Fixtures", 105, y, null, null, "center");
+        doc.text(`Matchday ${matchday}`, 10, y);
         y += 10;
 
-        document.querySelectorAll('.fixture').forEach(fixtureDiv => {
-            const team1 = fixtureDiv.querySelector(".team1-score").dataset.team;
-            const team2 = fixtureDiv.querySelector(".team2-score").dataset.team;
-            const score1 = fixtureDiv.querySelector(".team1-score").value || '-';
-            const score2 = fixtureDiv.querySelector(".team2-score").value || '-';
-            const date = fixtureDiv.querySelector(".fixture-date").innerText;
+        matchdays[matchday].forEach(fixture => {
+            const team1 = fixture.team1;
+            const team2 = fixture.team2;
+            const score1 = fixture.score1 !== null ? fixture.score1 : 'null';
+            const score2 = fixture.score2 !== null ? fixture.score2 : 'null';
+            const date = fixture.date;
 
             doc.setFontSize(12);
             doc.text(`${date}: ${team1} ${score1} - ${score2} ${team2}`, 10, y);
             y += 10;
+
+            // Check if the y position is close to the bottom of the page, then add a new page
+            if (y > 270) {
+                doc.addPage();
+                y = 10;
+            }
         });
 
         y += 10;
-        doc.setFontSize(14);
-        doc.text("Points Table", 105, y, null, null, "center");
-        y += 10;
+    });
 
-        const tableBody = Array.from(document.querySelectorAll('#pointsTable tbody tr')).map(row => 
-            Array.from(row.cells).map(cell => cell.innerText)
-        );
-        
-        doc.autoTable({
-            startY: y,
-            head: [['Position', 'Team', 'Played', 'Won', 'Drawn', 'Lost', 'Goals For', 'Goals Against', 'Goal Difference', 'Points']],
-            body: tableBody
-        });
+    y += 10;
+    doc.setFontSize(14);
+    doc.text("Points Table", 105, y, null, null, "center");
+    y += 10;
 
-        doc.save('ChampionsLeaguePredictions.pdf');
-    }
+    const tableBody = Array.from(document.querySelectorAll('#pointsTable tbody tr')).map(row => 
+        Array.from(row.cells).map(cell => cell.innerText)
+    );
 
-    document.getElementById('exportPDFButton').addEventListener('click', exportToPDF);
+    doc.autoTable({
+        startY: y,
+        head: [['Position', 'Team', 'Played', 'Won', 'Drawn', 'Lost', 'Goals For', 'Goals Against', 'Goal Difference', 'Points']],
+        body: tableBody
+    });
 
+    doc.save('ChampionsLeaguePredictions.pdf');
+}
 
-});
