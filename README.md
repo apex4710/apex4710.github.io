@@ -1,6 +1,6 @@
 # UEFA Champions League Predictor
 
-**[Access the site here](https://apex4710.github.io/){:target="_blank"}**
+**<a href="https://apex4710.github.io/" target="_blank">Access the site here</a>**
 
 Welcome to the UEFA Champions League Predictor! This web application allows you to enter match scores and view the updated points table based on the League Phase Tiebreakers.
 
@@ -48,7 +48,7 @@ The results are updated through Matchday 5.
 
 This project was made with the help of Copilot.
 
-Credit to football.db for providing the fixtures data: [football.db Champions League](https://github.com/openfootball/champions-league).
+Credit to football.db for providing the fixtures data: <a href="https://github.com/openfootball/champions-league" target="_blank">football.db Champions League</a>.
 
 ## License
 
