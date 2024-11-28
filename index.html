@@ -10,193 +10,195 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-image: url('images/uefa_champions_league_logo.png');
-            background-size: cover;
-            background-position: center;
-            color: #ffffff;
-            padding: 20px;
-        }
+        html, body {
+    font-family: 'Poppins', sans-serif;
+    background-image: url('images/uefa_champions_league_logo.png');
+    background-color: #121212; /* Matching the dark background color */
+    background-size: cover;
+    background-position: center;
+    color: #ffffff;
+    padding: 20px;
+}
 
-        h1, h2 {
-            text-align: center;
-            color: #e0e0e0; /* Light grey */
-        }
+h1, h2 {
+    text-align: center;
+    color: #e0e0e0; /* Light grey */
+}
 
-        .matchday {
-            margin-bottom: 20px;
-        }
+.matchday {
+    margin-bottom: 20px;
+}
 
-        .matchday button {
-            display: block;
-            width: 100%;
-            background-color: #1e90ff; /* Navy blue */
-            color: #ffffff;
-            border: none;
-            padding: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            text-align: left;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            transition: background-color 0.3s ease;
-        }
+.matchday button {
+    display: block;
+    width: 100%;
+    background-color: #1e90ff; /* Navy blue */
+    color: #ffffff;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: left;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+}
 
-        .matchday button:hover {
-            background-color: #9370db; /* Purple */
-        }
+.matchday button:hover {
+    background-color: #9370db; /* Purple */
+}
 
-        .fixture {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            background-color: rgba(42, 42, 42, 0.8); /* Semi-transparent background */
-            padding: 10px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        }
+.fixture {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: rgba(42, 42, 42, 0.8); /* Semi-transparent background */
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
 
-        .fixture-date {
-            flex: 0.5;
-            text-align: left;
-            color: #e0e0e0;
-        }
+.fixture-date {
+    flex: 0.5;
+    text-align: left;
+    color: #e0e0e0;
+}
 
-        .team-name {
-            flex: 1;
-            text-align: center;
-        }
+.team-name {
+    flex: 1;
+    text-align: center;
+}
 
-        .score-inputs {
-            flex: 1;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+.score-inputs {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-        .score-inputs input {
-            width: 50px;
-            padding: 5px;
-            border: none;
-            border-radius: 5px;
-            text-align: center;
-            font-size: 16px;
-            background-color: #3a3a3a;
-            color: #ffffff;
-            margin: 0 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-        }
+.score-inputs input {
+    width: 50px;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+    background-color: #3a3a3a;
+    color: #ffffff;
+    margin: 0 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
 
-        .score-inputs input[readonly] {
-            background-color: #666666;
-            color: #b0b0b0;
-        }
+.score-inputs input[readonly] {
+    background-color: #666666;
+    color: #b0b0b0;
+}
 
-        .score-inputs input:not([readonly]):focus {
-            background-color: #505050;
-            color: #1e90ff; /* Navy blue */
-            outline: none;
-            box-shadow: 0 0 10px rgba(30, 144, 255, 0.5);
-        }
+.score-inputs input:not([readonly]):focus {
+    background-color: #505050;
+    color: #1e90ff; /* Navy blue */
+    outline: none;
+    box-shadow: 0 0 10px rgba(30, 144, 255, 0.5);
+}
 
-        .note {
-            text-align: center;
-            color: #ffd700; /* Bright yellow */
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
+.note {
+    text-align: center;
+    color: #ffd700; /* Bright yellow */
+    font-size: 16px;
+    margin-bottom: 20px;
+}
 
-        table {
-            width: 100%;
-            margin: 0 auto;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            background-color: rgba(42, 42, 42, 0.8); /* Semi-transparent background */
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        }
+table {
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: rgba(42, 42, 42, 0.8); /* Semi-transparent background */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
 
-        th, td {
-            padding: 12px 15px;
-            text-align: center;
-        }
+th, td {
+    padding: 12px 15px;
+    text-align: center;
+}
 
-        th {
-            background-color: #3a3a3a;
-            color: #e0e0e0;
-        }
+th {
+    background-color: #3a3a3a;
+    color: #e0e0e0;
+}
 
-        td {
-            border-bottom: 1px solid #e0e0e0;
-        }
+td {
+    border-bottom: 1px solid #e0e0e0;
+}
 
-        #pointsTable tr.top8 td:first-child {
-            border-left: 10px solid green;
-        }
+#pointsTable tr.top8 td:first-child {
+    border-left: 10px solid green;
+}
 
-        #pointsTable tr.mid8 td:first-child {
-            border-left: 10px solid #ffd700; /* Yellow */
-        }
+#pointsTable tr.mid8 td:first-child {
+    border-left: 10px solid #ffd700; /* Yellow */
+}
 
-        #pointsTable tr.bottom4 td:first-child {
-            border-left: 10px solid red;
-        }
+#pointsTable tr.bottom4 td:first-child {
+    border-left: 10px solid red;
+}
 
-        .disclaimer {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #e0e0e0;
-            text-align: center;
-        }
+.disclaimer {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #e0e0e0;
+    text-align: center;
+}
 
-        #resetButton, #exportCSVButton, #exportPDFButton {
-            display: block;
-            background-color: #1e90ff; /* Navy blue */
-            color: #ffffff;
-            border: none;
-            padding: 10px 20px; /* Adjusted padding for better fit */
-            font-size: 16px;
-            cursor: pointer;
-            text-align: center; /* Center-align text */
-            border-radius: 8px;
-            margin: 10px auto; /* Margin for spacing between buttons */
-            transition: background-color 0.3s ease;
-            width: auto; /* Automatically size to content */
-            min-width: 150px; /* Ensure minimum width for consistency */
-        }
+#resetButton, #exportCSVButton, #exportPDFButton {
+    display: block;
+    background-color: #1e90ff; /* Navy blue */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px; /* Adjusted padding for better fit */
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center; /* Center-align text */
+    border-radius: 8px;
+    margin: 10px auto; /* Margin for spacing between buttons */
+    transition: background-color 0.3s ease;
+    width: auto; /* Automatically size to content */
+    min-width: 150px; /* Ensure minimum width for consistency */
+}
 
-        #resetButton {
-            background-color: red; /* Red for reset button */
-        }
+#resetButton {
+    background-color: red; /* Red for reset button */
+}
 
-        #resetButton:hover {
-            background-color: darkred; /* Darker red on hover */
-        }
+#resetButton:hover {
+    background-color: darkred; /* Darker red on hover */
+}
 
-        #exportCSVButton, #exportPDFButton {
-            background-color: green; /* Green for export buttons */
-        }
+#exportCSVButton, #exportPDFButton {
+    background-color: green; /* Green for export buttons */
+}
 
-        #exportCSVButton:hover, #exportPDFButton:hover {
-            background-color: darkgreen; /* Darker green on hover */
-        }
+#exportCSVButton:hover, #exportPDFButton:hover {
+    background-color: darkgreen; /* Darker green on hover */
+}
 
-        /* Media query for small screens */
-        @media (max-width: 600px) {
-            .score-inputs {
-                flex-direction: column;
-                gap: 10px; /* Add gap between the inputs */
-            }
+/* Media query for small screens */
+@media (max-width: 600px) {
+    .score-inputs {
+        flex-direction: column;
+        gap: 10px; /* Add gap between the inputs */
+    }
 
-            .score-inputs input {
-                width: 60px;
-                margin: 5px 0; /* Add vertical margin to the inputs */
-            }
-        }
+    .score-inputs input {
+        width: 60px;
+        margin: 5px 0; /* Add vertical margin to the inputs */
+    }
+}
+
     </style>
 </head>
 <body>
