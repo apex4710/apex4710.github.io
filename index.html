@@ -115,37 +115,70 @@ table {
     margin: 0 auto;
     border-collapse: collapse;
     margin-bottom: 20px;
-    background-color: rgba(42, 42, 42, 0.8); /* Semi-transparent background */
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.2); /* Darker transparency for the table */ 
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Adjust shadow for more depth */ 
+    overflow: hidden; /* Ensure rounded corners are applied correctly */ 
 }
 
 th, td {
-    padding: 12px 15px;
+    padding: 15px;
     text-align: center;
+    background-color: rgba(0, 0, 0, 0.2); /* Darker transparency for the table rows */ 
+    color: #e0e0e0;
+    border-bottom: 1px solid rgba(224, 224, 224, 0.3); /* Light border */
 }
 
 th {
-    background-color: #3a3a3a;
+    background-color: rgba(0, 0, 0, 0.2); /* Matching transparency for the header */ 
     color: #e0e0e0;
 }
 
-td {
-    border-bottom: 1px solid #e0e0e0;
+tbody tr:last-child td {
+    border-bottom: none; /* Remove border from last row */ 
 }
 
+
 #pointsTable tr.top8 td:first-child {
-    border-left: 10px solid green;
+    position: relative;
+    padding-left: 40px; /* Space for the indicator */
 }
 
 #pointsTable tr.mid8 td:first-child {
-    border-left: 10px solid #ffd700; /* Yellow */
+    position: relative;
+    padding-left: 40px; /* Space for the indicator */
 }
 
 #pointsTable tr.bottom4 td:first-child {
-    border-left: 10px solid red;
+    position: relative;
+    padding-left: 40px; /* Space for the indicator */
 }
+
+#pointsTable tr.top8 td:first-child::before,
+#pointsTable tr.mid8 td:first-child::before,
+#pointsTable tr.bottom4 td:first-child::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    width: 15px; /* Circle diameter */
+    height: 15px; /* Circle diameter */
+    border-radius: 50%; /* Makes the indicator a circle */
+}
+
+#pointsTable tr.top8 td:first-child::before {
+    background-color: #32CD32; /* Lime green */
+}
+
+#pointsTable tr.mid8 td:first-child::before {
+    background-color: #FFD700; /* Gold */
+}
+
+#pointsTable tr.bottom4 td:first-child::before {
+    background-color: #FF4500; /* Orange red */
+}
+
 
 .disclaimer {
     margin-top: 20px;
@@ -185,6 +218,33 @@ td {
 #exportCSVButton:hover, #exportPDFButton:hover {
     background-color: darkgreen; /* Darker green on hover */
 }
+
+.table {
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.2); /* Darker transparency for the table */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Adjust shadow for more depth */
+    overflow: hidden; /* Ensure rounded corners are applied correctly */
+}
+
+thead th {
+    background-color: rgba(0, 0, 0, 0.3); /* Slightly darker transparency for the header */
+    color: #e0e0e0;
+    padding: 15px; /* Add padding to header cells */
+}
+
+tbody td {
+    background-color: rgba(0, 0, 0, 0.2); /* Darker transparency for the table rows */
+    color: #e0e0e0;
+    border-bottom: 1px solid rgba(224, 224, 224, 0.3); /* Light border */
+    padding: 15px; /* Add padding to table cells */
+}
+
+tbody tr:last-child td {
+    border-bottom: none; /* Remove border from last row */
+}
+
+
+
 
 /* Media query for small screens */
 @media (max-width: 600px) {
