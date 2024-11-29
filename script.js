@@ -1,19 +1,47 @@
+// prettier-ignore
+
 document.addEventListener("DOMContentLoaded", function() {
     const teams = {};
     const fixturesDiv = document.getElementById("fixtures");
     const pointsTable = document.getElementById("pointsTable").getElementsByTagName("tbody")[0];
 
     const teamNames = [
-        "Girona FC (ESP)", "Liverpool FC (ENG)", "GNK Dinamo Zagreb (CRO)", "Celtic FC (SCO)",
-        "Stade Brestois 29 (FRA)", "PSV (NED)", "RB Leipzig (GER)", "Aston Villa FC (ENG)",
-        "Atalanta BC (ITA)", "Real Madrid CF (ESP)", "Bayer 04 Leverkusen (GER)",
-        "FC Internazionale Milano (ITA)", "Club Brugge KV (BEL)", "Sporting Clube de Portugal (POR)",
-        "FK Shakhtar Donetsk (UKR)", "FC Bayern München (GER)", "FC Red Bull Salzburg (AUT)",
-        "Paris Saint-Germain FC (FRA)", "Club Atlético de Madrid (ESP)", "ŠK Slovan Bratislava (SVK)",
-        "Lille OSC (FRA)", "SK Sturm Graz (AUT)", "VfB Stuttgart (GER)", "BSC Young Boys (SUI)",
-        "Borussia Dortmund (GER)", "FC Barcelona (ESP)", "AC Milan (ITA)", "FK Crvena Zvezda (SRB)",
-        "Sport Lisboa e Benfica (POR)", "Bologna FC 1909 (ITA)", "Arsenal FC (ENG)", "AS Monaco FC (MCO)",
-        "Juventus FC (ITA)", "Manchester City FC (ENG)", "Feyenoord Rotterdam (NED)", "AC Sparta Praha (CZE)"
+      'Girona FC (ESP)',
+      'Liverpool FC (ENG)',
+      'GNK Dinamo Zagreb (CRO)',
+      'Celtic FC (SCO)',
+      'Stade Brestois 29 (FRA)',
+      'PSV (NED)',
+      'RB Leipzig (GER)',
+      'Aston Villa FC (ENG)',
+      'Atalanta BC (ITA)',
+      'Real Madrid CF (ESP)',
+      'Bayer 04 Leverkusen (GER)',
+      'FC Internazionale Milano (ITA)',
+      'Club Brugge KV (BEL)',
+      'Sporting Clube de Portugal (POR)',
+      'FK Shakhtar Donetsk (UKR)',
+      'FC Bayern München (GER)',
+      'FC Red Bull Salzburg (AUT)',
+      'Paris Saint-Germain FC (FRA)',
+      'Club Atlético de Madrid (ESP)',
+      'ŠK Slovan Bratislava (SVK)',
+      'Lille OSC (FRA)',
+      'SK Sturm Graz (AUT)',
+      'VfB Stuttgart (GER)',
+      'BSC Young Boys (SUI)',
+      'Borussia Dortmund (GER)',
+      'FC Barcelona (ESP)',
+      'AC Milan (ITA)',
+      'FK Crvena Zvezda (SRB)',
+      'Sport Lisboa e Benfica (POR)',
+      'Bologna FC 1909 (ITA)',
+      'Arsenal FC (ENG)',
+      'AS Monaco FC (MCO)',
+      'Juventus FC (ITA)',
+      'Manchester City FC (ENG)',
+      'Feyenoord Rotterdam (NED)',
+      'AC Sparta Praha (CZE)',
     ];
 
     teamNames.forEach(team => {
@@ -569,5 +597,3 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 });
-
-
