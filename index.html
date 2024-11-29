@@ -1,341 +1,409 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>UEFA Champions League Predictor</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
-        html, body {
-    font-family: 'Poppins', sans-serif;
-    background-image: url('images/uefa_champions_league_logo.png');
-    background-color: #071432; /* Matching the dark background color */
-    background-size: cover;
-    background-position: center;
-    color: #ffffff;
-    padding: 20px;
-}
+      html,
+      body {
+        font-family: 'Poppins', sans-serif;
+        background-image: url('images/uefa_champions_league_logo.png');
+        background-color: #071432; /* Matching the dark background color */
+        background-size: cover;
+        background-position: center;
+        color: #ffffff;
+        padding: 20px;
+      }
 
-h1, h2 {
-    text-align: center;
-    color: #e0e0e0; /* Light grey */
-}
+      h1,
+      h2 {
+        text-align: center;
+        color: #e0e0e0; /* Light grey */
+      }
 
-.matchday button {
-    display: block;
-    width: 100%;
-    background-color: #1e90ff; /* Navy blue */ /* #4fc3f7;*/ /* Brighter blue */
-    color: #ffffff;
-    border: none;
-    padding: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    text-align: left;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Added transform for pop-up effect */
-    backdrop-filter: blur(10px); /* Blur effect for glass look */
-    background: rgba(60, 153, 229, 0.5); /* Light blue with transparency for glass effect */
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Light border for glass effect */
-}
+      .matchday button {
+        display: block;
+        width: 100%;
+        background-color: #1e90ff; /* Navy blue */ /* #4fc3f7;*/ /* Brighter blue */
+        color: #ffffff;
+        border: none;
+        padding: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: left;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        transition: background-color 0.3s ease, transform 0.3s ease; /* Added transform for pop-up effect */
+        backdrop-filter: blur(10px); /* Blur effect for glass look */
+        background: rgba(
+          60,
+          153,
+          229,
+          0.5
+        ); /* Light blue with transparency for glass effect */
+        border: 1px solid rgba(255, 255, 255, 0.2); /* Light border for glass effect */
+      }
 
-.matchday button:hover {
-    background-color: #c76ee4; /* Pink */     /* #9370db; /* Purple */
-    transform: scale(1.05); /* Pop-up effect */
-}
+      .matchday button:hover {
+        background-color: #c76ee4; /* Pink */ /* #9370db; /* Purple */
+        transform: scale(1.05); /* Pop-up effect */
+      }
 
-.fixture {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    background-color: rgba(47, 69, 87, 0.6); /* rgba(66, 66, 66, 0.6); Lighter transparency for background */
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
+      .fixture {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        background-color: rgba(
+          47,
+          69,
+          87,
+          0.6
+        ); /* rgba(66, 66, 66, 0.6); Lighter transparency for background */
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      }
 
-.fixture-date {
-    flex: 0.5;
-    text-align: left;
-    color: #e0e0e0;
-}
+      .fixture-date {
+        flex: 0.5;
+        text-align: left;
+        color: #e0e0e0;
+      }
 
-.team-name {
-    flex: 1;
-    text-align: center;
-    color: #ffffff;
-}
+      .team-name {
+        flex: 1;
+        text-align: center;
+        color: #ffffff;
+      }
 
-.score-inputs {
-    flex: 1;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+      .score-inputs {
+        flex: 1;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
-.score-inputs input {
-    width: 50px;
-    padding: 5px;
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 16px;
-    background-color: #3a3a3a;
-    color: #ffffff;
-    margin: 0 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
+      .score-inputs input {
+        width: 50px;
+        padding: 5px;
+        border: none;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 16px;
+        background-color: #3a3a3a;
+        color: #ffffff;
+        margin: 0 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+      }
 
-.score-inputs input[readonly] {
-    background-color: #666666;
-    color: #b0b0b0;
-}
+      .score-inputs input[readonly] {
+        background-color: #666666;
+        color: #b0b0b0;
+      }
 
-.score-inputs input:not([readonly]):focus {
-    background-color: #505050;
-    color: #1e90ff; /* Navy blue */
-    outline: none;
-    box-shadow: 0 0 10px rgba(30, 144, 255, 0.5);
-}
+      .score-inputs input:not([readonly]):focus {
+        background-color: #505050;
+        color: #1e90ff; /* Navy blue */
+        outline: none;
+        box-shadow: 0 0 10px rgba(30, 144, 255, 0.5);
+      }
 
+      .note {
+        text-align: center;
+        color: #ffd700; /* Bright yellow */
+        font-size: 16px;
+        margin-bottom: 20px;
+      }
 
+      table {
+        width: 100%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        background-color: rgba(
+          0,
+          0,
+          0,
+          0.2
+        ); /* Darker transparency for the table */
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Adjust shadow for more depth */
+        overflow: hidden; /* Ensure rounded corners are applied correctly */
+      }
 
-.note {
-    text-align: center;
-    color: #ffd700; /* Bright yellow */
-    font-size: 16px;
-    margin-bottom: 20px;
-}
+      th,
+      td {
+        padding: 15px;
+        text-align: center;
+        background-color: rgba(
+          0,
+          0,
+          0,
+          0.2
+        ); /* Darker transparency for the table rows */
+        color: #e0e0e0;
+        border-bottom: 1px solid rgba(224, 224, 224, 0.3); /* Light border */
+      }
 
-table {
-    width: 100%;
-    margin: 0 auto;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    background-color: rgba(0, 0, 0, 0.2); /* Darker transparency for the table */ 
-    border-radius: 15px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Adjust shadow for more depth */ 
-    overflow: hidden; /* Ensure rounded corners are applied correctly */ 
-}
+      th {
+        background-color: rgba(
+          0,
+          0,
+          0,
+          0.2
+        ); /* Matching transparency for the header */
+        color: #e0e0e0;
+      }
 
-th, td {
-    padding: 15px;
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.2); /* Darker transparency for the table rows */ 
-    color: #e0e0e0;
-    border-bottom: 1px solid rgba(224, 224, 224, 0.3); /* Light border */
-}
+      tbody tr:last-child td {
+        border-bottom: none; /* Remove border from last row */
+      }
 
-th {
-    background-color: rgba(0, 0, 0, 0.2); /* Matching transparency for the header */ 
-    color: #e0e0e0;
-}
+      #pointsTable tr.top8 td:first-child {
+        position: relative;
+        padding-left: 10px; /* Reduced padding for a more compact look */
+      }
 
-tbody tr:last-child td {
-    border-bottom: none; /* Remove border from last row */ 
-}
+      #pointsTable tr.mid8 td:first-child {
+        position: relative;
+        padding-left: 10px; /* Reduced padding for a more compact look */
+      }
 
-#pointsTable tr.top8 td:first-child {
-    position: relative;
-    padding-left: 10px; /* Reduced padding for a more compact look */
-}
+      #pointsTable tr.bottom4 td:first-child {
+        position: relative;
+        padding-left: 10px; /* Reduced padding for a more compact look */
+      }
 
-#pointsTable tr.mid8 td:first-child {
-    position: relative;
-    padding-left: 10px; /* Reduced padding for a more compact look */
-}
+      #pointsTable tr.top8 td:first-child::before,
+      #pointsTable tr.mid8 td:first-child::before,
+      #pointsTable tr.bottom4 td:first-child::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 5px; /* Bar width */
+        height: 100%; /* Full height bar */
+      }
 
-#pointsTable tr.bottom4 td:first-child {
-    position: relative;
-    padding-left: 10px; /* Reduced padding for a more compact look */
-}
+      #pointsTable tr.top8 td:first-child::before {
+        background-color: #32cd32; /* Lime green */
+      }
 
-#pointsTable tr.top8 td:first-child::before,
-#pointsTable tr.mid8 td:first-child::before,
-#pointsTable tr.bottom4 td:first-child::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 5px; /* Bar width */
-    height: 100%; /* Full height bar */
-}
+      #pointsTable tr.mid8 td:first-child::before {
+        background-color: #ffd700; /* Gold */
+      }
 
-#pointsTable tr.top8 td:first-child::before {
-    background-color: #32CD32; /* Lime green */
-}
+      #pointsTable tr.bottom4 td:first-child::before {
+        background-color: #ff4500; /* Orange red */
+      }
 
-#pointsTable tr.mid8 td:first-child::before {
-    background-color: #FFD700; /* Gold */
-}
+      /* Existing table styles */
+      #pointsTable th,
+      #pointsTable td {
+        padding: 15px;
+        text-align: center;
+        background-color: rgba(
+          0,
+          0,
+          0,
+          0.2
+        ); /* Darker transparency for the table rows */
+        color: #e0e0e0;
+        border-bottom: 1px solid rgba(224, 224, 224, 0.3); /* Light border */
+      }
 
-#pointsTable tr.bottom4 td:first-child::before {
-    background-color: #FF4500; /* Orange red */
-}
+      #pointsTable th {
+        background-color: rgba(
+          0,
+          0,
+          0,
+          0.2
+        ); /* Matching transparency for the header */
+        color: #e0e0e0;
+      }
 
-/* Existing table styles */
-#pointsTable th, #pointsTable td {
-    padding: 15px;
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.2); /* Darker transparency for the table rows */
-    color: #e0e0e0;
-    border-bottom: 1px solid rgba(224, 224, 224, 0.3); /* Light border */
-}
+      #pointsTable tbody tr:last-child td {
+        border-bottom: none; /* Remove border from last row */
+      }
 
-#pointsTable th {
-    background-color: rgba(0, 0, 0, 0.2); /* Matching transparency for the header */
-    color: #e0e0e0;
-}
+      .disclaimer {
+        margin-top: 20px;
+        font-size: 14px;
+        color: #e0e0e0;
+        text-align: center;
+      }
 
-#pointsTable tbody tr:last-child td {
-    border-bottom: none; /* Remove border from last row */
-}
+      #resetButton,
+      #exportCSVButton,
+      #exportPDFButton {
+        display: block;
+        background-color: #1e90ff; /* Navy blue */
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px; /* Adjusted padding for better fit */
+        font-size: 16px;
+        cursor: pointer;
+        text-align: center; /* Center-align text */
+        border-radius: 8px;
+        margin: 10px auto; /* Margin for spacing between buttons */
+        transition: background-color 0.3s ease;
+        width: auto; /* Automatically size to content */
+        min-width: 150px; /* Ensure minimum width for consistency */
+      }
 
+      #resetButton {
+        background-color: rgb(202, 61, 51); /* Red for reset button */
+      }
 
+      #resetButton:hover {
+        background-color: darkred; /* Darker red on hover */
+      }
 
+      #exportCSVButton,
+      #exportPDFButton {
+        background-color: green; /* Green for export buttons */
+      }
 
+      #exportCSVButton:hover,
+      #exportPDFButton:hover {
+        background-color: darkgreen; /* Darker green on hover */
+      }
 
-.disclaimer {
-    margin-top: 20px;
-    font-size: 14px;
-    color: #e0e0e0;
-    text-align: center;
-}
+      .table {
+        border-radius: 15px;
+        background-color: rgba(
+          0,
+          0,
+          0,
+          0.2
+        ); /* Darker transparency for the table */
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.5); /* Adjust shadow for more depth */
+        overflow: hidden; /* Ensure rounded corners are applied correctly */
+      }
 
-#resetButton, #exportCSVButton, #exportPDFButton {
-    display: block;
-    background-color: #1e90ff; /* Navy blue */
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px; /* Adjusted padding for better fit */
-    font-size: 16px;
-    cursor: pointer;
-    text-align: center; /* Center-align text */
-    border-radius: 8px;
-    margin: 10px auto; /* Margin for spacing between buttons */
-    transition: background-color 0.3s ease;
-    width: auto; /* Automatically size to content */
-    min-width: 150px; /* Ensure minimum width for consistency */
-}
+      thead th {
+        background-color: rgba(
+          0,
+          0,
+          0,
+          0.3
+        ); /* Slightly darker transparency for the header */
+        color: #e0e0e0;
+        padding: 15px; /* Add padding to header cells */
+      }
 
-#resetButton {
-    background-color: rgb(202, 61, 51); /* Red for reset button */
-}
+      tbody td {
+        background-color: rgba(
+          0,
+          0,
+          0,
+          0.2
+        ); /* Darker transparency for the table rows */
+        color: #e0e0e0;
+        border-bottom: 1px solid rgba(224, 224, 224, 0.3); /* Light border */
+        padding: 15px; /* Add padding to table cells */
+      }
 
-#resetButton:hover {
-    background-color: darkred; /* Darker red on hover */
-}
+      tbody tr:last-child td {
+        border-bottom: none; /* Remove border from last row */
+      }
 
-#exportCSVButton, #exportPDFButton {
-    background-color: green; /* Green for export buttons */
-}
+      /* Media query for small screens */
+      @media (max-width: 600px) {
+        .score-inputs {
+          flex-direction: column;
+          gap: 10px; /* Add gap between the inputs */
+        }
 
-#exportCSVButton:hover, #exportPDFButton:hover {
-    background-color: darkgreen; /* Darker green on hover */
-}
-
-.table {
-    border-radius: 15px;
-    background-color: rgba(0, 0, 0, 0.2); /* Darker transparency for the table */
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5); /* Adjust shadow for more depth */
-    overflow: hidden; /* Ensure rounded corners are applied correctly */
-}
-
-thead th {
-    background-color: rgba(0, 0, 0, 0.3); /* Slightly darker transparency for the header */
-    color: #e0e0e0;
-    padding: 15px; /* Add padding to header cells */
-}
-
-tbody td {
-    background-color: rgba(0, 0, 0, 0.2); /* Darker transparency for the table rows */
-    color: #e0e0e0;
-    border-bottom: 1px solid rgba(224, 224, 224, 0.3); /* Light border */
-    padding: 15px; /* Add padding to table cells */
-}
-
-tbody tr:last-child td {
-    border-bottom: none; /* Remove border from last row */
-}
-
-
-
-
-/* Media query for small screens */
-@media (max-width: 600px) {
-    .score-inputs {
-        flex-direction: column;
-        gap: 10px; /* Add gap between the inputs */
-    }
-
-    .score-inputs input {
-        width: 60px;
-        margin: 5px 0; /* Add vertical margin to the inputs */
-    }
-}
-
+        .score-inputs input {
+          width: 60px;
+          margin: 5px 0; /* Add vertical margin to the inputs */
+        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h1>UEFA Champions League Predictor</h1>
-        <h2>Fixtures</h2>
-        <div id="fixtures"></div>
-        <div class="note">Please click in the blank space after entering scores to ensure the table updates correctly.</div>
-        <h2>Points Table</h2>
-        <div class="table-responsive">
-            <table id="pointsTable" class="table table-dark table-striped table-bordered">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Position</th>
-                        <th>Team</th>
-                        <th>Played</th>
-                        <th>Won</th>
-                        <th>Drawn</th>
-                        <th>Lost</th>
-                        <th>Goals For</th>
-                        <th>Goals Against</th>
-                        <th>Goal Difference</th>
-                        <th>Points</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Points table rows will go here -->
-                </tbody>
-            </table>
-        </div>
-        <div class="disclaimer text-center">
-            Note: The table is sorted using the following League Phase Tiebreakers:<br>
-            1 - Goal difference<br>
-            2 - Goals scored<br>
-            3 - Away goals scored<br>
-            4 - Wins<br>
-            5 - Away wins
-        </div>
-        <button id="resetButton">Reset</button>
-        <button id="exportCSVButton">Export to CSV</button>
-        <button id="exportPDFButton">Export as PDF</button>
-        <div class="text-center" style="margin-top: 20px;">
-            <a href="https://github.com/apex4710/apex4710.github.io" target="_blank" class="btn btn-primary">View GitHub Repository</a>
-        </div>
-        <div class="text-center" style="margin-top: 20px;">
-            <p>
-                <strong>Qualifying Criteria:</strong><br>
-                - <span style="color: #32CD32;">Top 8 teams</span> (in green) qualify directly for the Round of 16.<br>
-                - <span style="color: #FFD700;">Teams ranked 9 to 24</span> (in yellow) will compete in a knockout playoff round.<br>
-                - <span style="color: #FF4500;">Teams ranked 25 to 36</span> (in red) will be eliminated.
-            </p>
-        </div>
-        
+      <h1>UEFA Champions League Predictor</h1>
+      <h2>Fixtures</h2>
+      <div id="fixtures"></div>
+      <div class="note">
+        Please click in the blank space after entering scores to ensure the
+        table updates correctly.
+      </div>
+      <h2>Points Table</h2>
+      <div class="table-responsive">
+        <table
+          id="pointsTable"
+          class="table table-dark table-striped table-bordered"
+        >
+          <thead class="thead-dark">
+            <tr>
+              <th>Position</th>
+              <th>Team</th>
+              <th>Played</th>
+              <th>Won</th>
+              <th>Drawn</th>
+              <th>Lost</th>
+              <th>Goals For</th>
+              <th>Goals Against</th>
+              <th>Goal Difference</th>
+              <th>Points</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Points table rows will go here -->
+          </tbody>
+        </table>
+      </div>
+      <div class="disclaimer text-center">
+        Note: The table is sorted using the following League Phase
+        Tiebreakers:<br />
+        1 - Goal difference<br />
+        2 - Goals scored<br />
+        3 - Away goals scored<br />
+        4 - Wins<br />
+        5 - Away wins
+      </div>
+      <button id="resetButton">Reset</button>
+      <button id="exportCSVButton">Export to CSV</button>
+      <button id="exportPDFButton">Export as PDF</button>
+      <div class="text-center" style="margin-top: 20px">
+        <a
+          href="https://github.com/apex4710/apex4710.github.io"
+          target="_blank"
+          class="btn btn-primary"
+          >View GitHub Repository</a
+        >
+      </div>
+      <div class="text-center" style="margin-top: 20px">
+        <p>
+          <strong>Qualifying Criteria:</strong><br />
+          - <span style="color: #32cd32">Top 8 teams</span> (in green) qualify
+          directly for the Round of 16.<br />
+          - <span style="color: #ffd700">Teams ranked 9 to 24</span> (in yellow)
+          will compete in a knockout playoff round.<br />
+          - <span style="color: #ff4500">Teams ranked 25 to 36</span> (in red)
+          will be eliminated.
+        </p>
+      </div>
     </div>
     <script src="script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.18/jspdf.plugin.autotable.min.js"></script>
-</body>
+  </body>
 </html>
