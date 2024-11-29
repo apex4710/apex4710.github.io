@@ -25,14 +25,10 @@ h1, h2 {
     color: #e0e0e0; /* Light grey */
 }
 
-.matchday {
-    margin-bottom: 20px;
-}
-
 .matchday button {
     display: block;
     width: 100%;
-    background-color: #1e90ff; /* Navy blue */
+    background-color: #1e90ff; /* Navy blue */ /* #4fc3f7;*/ /* Brighter blue */
     color: #ffffff;
     border: none;
     padding: 10px;
@@ -41,11 +37,15 @@ h1, h2 {
     text-align: left;
     border-radius: 8px;
     margin-bottom: 10px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Added transform for pop-up effect */
+    backdrop-filter: blur(10px); /* Blur effect for glass look */
+    background: rgba(173, 216, 230, 0.5); /* Light blue with transparency for glass effect */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Light border for glass effect */
 }
 
 .matchday button:hover {
     background-color: #9370db; /* Purple */
+    transform: scale(1.05); /* Pop-up effect */
 }
 
 .fixture {
@@ -53,7 +53,7 @@ h1, h2 {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-    background-color: rgba(42, 42, 42, 0.8); /* Semi-transparent background */
+    background-color: rgba(66, 66, 66, 0.6); /* Lighter transparency for background */
     padding: 10px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -68,6 +68,7 @@ h1, h2 {
 .team-name {
     flex: 1;
     text-align: center;
+    color: #ffffff;
 }
 
 .score-inputs {
@@ -102,6 +103,8 @@ h1, h2 {
     outline: none;
     box-shadow: 0 0 10px rgba(30, 144, 255, 0.5);
 }
+
+
 
 .note {
     text-align: center;
