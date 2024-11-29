@@ -138,20 +138,19 @@ tbody tr:last-child td {
     border-bottom: none; /* Remove border from last row */ 
 }
 
-
 #pointsTable tr.top8 td:first-child {
     position: relative;
-    padding-left: 40px; /* Space for the indicator */
+    padding-left: 10px; /* Reduced padding for a more compact look */
 }
 
 #pointsTable tr.mid8 td:first-child {
     position: relative;
-    padding-left: 40px; /* Space for the indicator */
+    padding-left: 10px; /* Reduced padding for a more compact look */
 }
 
 #pointsTable tr.bottom4 td:first-child {
     position: relative;
-    padding-left: 40px; /* Space for the indicator */
+    padding-left: 10px; /* Reduced padding for a more compact look */
 }
 
 #pointsTable tr.top8 td:first-child::before,
@@ -159,12 +158,10 @@ tbody tr:last-child td {
 #pointsTable tr.bottom4 td:first-child::before {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 15px;
-    transform: translateY(-50%);
-    width: 15px; /* Circle diameter */
-    height: 15px; /* Circle diameter */
-    border-radius: 50%; /* Makes the indicator a circle */
+    top: 0;
+    left: 0;
+    width: 5px; /* Bar width */
+    height: 100%; /* Full height bar */
 }
 
 #pointsTable tr.top8 td:first-child::before {
@@ -178,6 +175,27 @@ tbody tr:last-child td {
 #pointsTable tr.bottom4 td:first-child::before {
     background-color: #FF4500; /* Orange red */
 }
+
+/* Existing table styles */
+#pointsTable th, #pointsTable td {
+    padding: 15px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.2); /* Darker transparency for the table rows */
+    color: #e0e0e0;
+    border-bottom: 1px solid rgba(224, 224, 224, 0.3); /* Light border */
+}
+
+#pointsTable th {
+    background-color: rgba(0, 0, 0, 0.2); /* Matching transparency for the header */
+    color: #e0e0e0;
+}
+
+#pointsTable tbody tr:last-child td {
+    border-bottom: none; /* Remove border from last row */
+}
+
+
+
 
 
 .disclaimer {
