@@ -155,8 +155,8 @@ document.addEventListener("DOMContentLoaded", function() {
         { matchday: 5, date: "2024-11-27", team1: "GNK Dinamo Zagreb (CRO)", team2: "Borussia Dortmund (GER)", score1: 0, score2: 3 },
         { matchday: 5, date: "2024-11-27", team1: "PSV (NED)", team2: "FK Shakhtar Donetsk (UKR)", score1: 3, score2: 2 },
         // Matchday 6
-        { matchday: 6, date: "2024-12-10", team1: "Girona FC (ESP)", team2: "Liverpool FC (ENG)", score1: null, score2: null },
-        { matchday: 6, date: "2024-12-10", team1: "GNK Dinamo Zagreb (CRO)", team2: "Celtic FC (SCO)", score1: null, score2: null },
+        { matchday: 6, date: "2024-12-10", team1: "Girona FC (ESP)", team2: "Liverpool FC (ENG)", score1: 0, score2: 1 },
+        { matchday: 6, date: "2024-12-10", team1: "GNK Dinamo Zagreb (CRO)", team2: "Celtic FC (SCO)", score1: 0, score2: 0 },
         { matchday: 6, date: "2024-12-10", team1: "Stade Brestois 29 (FRA)", team2: "PSV (NED)", score1: null, score2: null },
         { matchday: 6, date: "2024-12-10", team1: "RB Leipzig (GER)", team2: "Aston Villa FC (ENG)", score1: null, score2: null },
         { matchday: 6, date: "2024-12-10", team1: "Atalanta BC (ITA)", team2: "Real Madrid CF (ESP)", score1: null, score2: null },
