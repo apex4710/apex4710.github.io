@@ -528,72 +528,136 @@ document.addEventListener("DOMContentLoaded", function() {
     function exportToPDF() {
         const doc = new jsPDF();
     
+        // Title
         let y = 10;
         doc.setFontSize(18);
         doc.text("UEFA Champions League Predictor", 105, y, null, null, "center");
         y += 10;
     
+        // Fixtures Header
         doc.setFontSize(14);
         doc.text("Fixtures", 105, y, null, null, "center");
         y += 10;
     
-        // Add matchday and fixtures to the PDF
-        Object.keys(matchdays).forEach(matchday => {
+        // Fixtures Section with Table Layout
+        Object.keys(matchdays).forEach((matchday) => {
             doc.setFontSize(14);
             doc.text(`Matchday ${matchday}`, 10, y);
             y += 10;
     
-            matchdays[matchday].forEach(fixture => {
-                const team1 = fixture.team1;
-                const team2 = fixture.team2;
-                const score1 = fixture.score1 !== null ? fixture.score1 : 'null';
-                const score2 = fixture.score2 !== null ? fixture.score2 : 'null';
-                const date = fixture.date;
+            // Table Header for Fixtures
+            const columnWidths = {
+                date: 30,
+                teams: 120,
+                score: 40,
+            };
+            const startX = 10;
     
+            doc.setFontSize(12);
+            doc.text("Date", startX, y);
+            doc.text("Teams", startX + columnWidths.date + 5, y);
+            doc.text("Score", startX + columnWidths.date + columnWidths.teams + columnWidths.score - 5, y, null, null, "right");
+            y += 10;
+    
+            matchdays[matchday].forEach((fixture, index) => {
+                const { team1, team2, score1, score2, date } = fixture;
+    
+                // Alternating row background colors
+                const bgColor = index % 2 === 0 ? [245, 245, 245] : [255, 255, 255];
+                doc.setFillColor(...bgColor);
+                doc.rect(10, y - 7, 190, 8, "F");
+    
+                // Fixture Details
                 doc.setFontSize(12);
-                doc.text(`${date}: ${team1} ${score1} - ${score2} ${team2}`, 10, y);
+    
+                // Date
+                doc.text(date, startX, y);
+    
+                // Teams
+                const teamText = `${team1} vs ${team2}`;
+                const maxTeamTextLength = 40; // Adjust if needed for longer names
+                const truncatedTeamText = teamText.length > maxTeamTextLength
+                    ? `${teamText.substring(0, maxTeamTextLength)}...`
+                    : teamText;
+                doc.text(truncatedTeamText, startX + columnWidths.date + 5, y);
+    
+                // Score
+                const scoreText = `${score1 !== null ? score1 : '-'} - ${score2 !== null ? score2 : '-'}`;
+                doc.text(scoreText, startX + columnWidths.date + columnWidths.teams + columnWidths.score - 5, y, null, null, "right");
+    
                 y += 10;
     
-                // Check if the y position is close to the bottom of the page, then add a new page
+                // Pagination for fixtures
                 if (y > 270) {
                     doc.addPage();
                     y = 10;
+                    doc.setFontSize(14);
+                    doc.text("Fixtures (cont.)", 105, y, null, null, "center");
+                    y += 10;
                 }
             });
     
             y += 10;
         });
     
-        y += 10;
+        // Points Table Header
         doc.setFontSize(14);
         doc.text("Points Table", 105, y, null, null, "center");
         y += 10;
     
-        const tableBody = Array.from(document.querySelectorAll('#pointsTable tbody tr')).map((row, rowIndex) => {
+        // Points Table Body
+        const tableBody = Array.from(document.querySelectorAll("#pointsTable tbody tr")).map((row, rowIndex) => {
             const rowData = Array.from(row.cells).map(cell => cell.innerText);
+            const rank = rowData[0];
+            const indicatorColor = rowIndex < 8 ? [0, 255, 0] : rowIndex < 24 ? [255, 215, 0] : [255, 0, 0];
+    
+            // Add a colored indicator next to the rank
             return [
                 {
-                    content: '',
+                    content: "",
                     styles: {
-                        fillColor: rowIndex < 8 ? [0, 255, 0] : rowIndex < 24 ? [255, 215, 0] : [255, 0, 0]
-                    }
+                        cellWidth: 5,
+                        halign: "center",
+                        valign: "middle",
+                        fillColor: indicatorColor,
+                    },
                 },
-                ...rowData
+                rank, // Replace "Position" with "No."
+                ...rowData.slice(1),
             ];
         });
     
+        // Render Points Table
         doc.autoTable({
             startY: y,
-            head: [['', 'Position', 'Team', 'Played', 'Won', 'Drawn', 'Lost', 'Goals For', 'Goals Against', 'Goal Difference', 'Points']],
-            body: tableBody
+            head: [
+                ["", "No.", "Team", "Played", "Won", "Drawn", "Lost", "Goals For", "Goals Against", "Goal Difference", "Points"],
+            ],
+            body: tableBody,
+            bodyStyles: {
+                halign: "center",
+            },
+            styles: {
+                lineWidth: 0.1,
+                lineColor: [200, 200, 200],
+            },
+            headStyles: {
+                fillColor: [45, 45, 45],
+                textColor: [255, 255, 255],
+            },
+            columnStyles: {
+                0: { cellWidth: 5 }, // Indicator column
+                1: { cellWidth: 10 }, // No. column (was Position)
+            },
         });
     
-        doc.save('ChampionsLeaguePredictions.pdf');
+        // Save the PDF
+        doc.save("ChampionsLeaguePredictions.pdf");
     }
     
+    document.getElementById("exportPDFButton").addEventListener("click", exportToPDF);
     
-
-    document.getElementById('exportPDFButton').addEventListener('click', exportToPDF);
+    
 
 
 });
