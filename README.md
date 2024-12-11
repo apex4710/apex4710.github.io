@@ -1,6 +1,6 @@
-# League Predictor Hub
+# Predictor Hub
 
-Welcome to the League Predictor Hub! This project provides access to three exciting predictor web pages for Europe's top football competitions:
+Welcome to the Predictor Hub! This project provides access to three exciting predictor web pages for Europe's top football competitions:
 
 ## Web Pages
 
