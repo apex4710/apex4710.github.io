@@ -114,7 +114,7 @@
 
 <body class="dark-mode">
     <canvas id="particleCanvas"></canvas>
-    <button class="toggle-mode" onclick="toggleMode()">🌙</button>
+    <button class="toggle-mode" onclick="toggleMode()" aria-label="Toggle dark mode">🌙</button>
     <div class="container">
         <h1>Welcome to the Predictor Hub</h1>
         <div class="button-container">
@@ -148,7 +148,11 @@
                 toggleButton.textContent = '🌙';
                 localStorage.setItem('mode', 'dark-mode');
             }
+
+            // Redraw particles with updated colors
+            particles.forEach(particle => particle.draw());
         }
+
 
         // Particle Background Animation
         const canvas = document.getElementById('particleCanvas');
@@ -175,12 +179,16 @@
             }
 
             draw() {
+                const isDarkMode = document.body.classList.contains('dark-mode');
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                ctx.fillStyle = isDarkMode
+                    ? 'rgba(255, 255, 255, 0.7)' // Light particles for dark mode
+                    : 'rgba(0, 0, 0, 0.5)';     // Dark particles for light mode
                 ctx.fill();
                 ctx.closePath();
             }
+
         }
 
         function initParticles() {
@@ -189,14 +197,20 @@
             }
         }
 
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
-            });
+        let lastRenderTime = 0;
+
+        function animateParticles(timestamp) {
+            if (timestamp - lastRenderTime > 1000 / 30) { // 30 FPS
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(particle => {
+                    particle.update();
+                    particle.draw();
+                });
+                lastRenderTime = timestamp;
+            }
             requestAnimationFrame(animateParticles);
         }
+
 
         initParticles();
         animateParticles();
