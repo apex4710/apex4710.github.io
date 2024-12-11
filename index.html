@@ -4,32 +4,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>League Predictor Hub</title>
+    <title>Predictor Hub</title>
     <style>
         :root {
             --bg-color-light: #e8f4f8;
-            /* Soft blue-gray */
             --text-color-light: #333;
-            /* Dark gray */
             --bg-color-dark: #1c1c28;
-            /* Dark navy */
             --text-color-dark: #f0f0f0;
-            /* Light gray */
             --primary-color: #4caf50;
-            /* Soft green */
+            --secondary-color: #66bb6a;
+            --button-hover-dark: #3e8e41;
+            --button-hover-light: #3a7c38;
         }
 
         body {
             margin: 0;
             font-family: 'Arial', sans-serif;
-            transition: background-color 0.3s, color 0.3s;
-            background-color: var(--bg-color-light);
-            color: var(--text-color-light);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
         }
 
         .dark-mode {
             background-color: var(--bg-color-dark);
             color: var(--text-color-dark);
+        }
+
+        .light-mode {
+            background-color: var(--bg-color-light);
+            color: var(--text-color-light);
         }
 
         .container {
@@ -44,6 +52,7 @@
         h1 {
             font-size: 2.5rem;
             margin-bottom: 20px;
+            z-index: 10;
         }
 
         .button-container {
@@ -51,6 +60,7 @@
             flex-wrap: wrap;
             gap: 20px;
             justify-content: center;
+            z-index: 10;
         }
 
         .button {
@@ -59,21 +69,21 @@
             font-weight: bold;
             border: none;
             border-radius: 8px;
-            background: linear-gradient(45deg, var(--primary-color), #66bb6a);
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
             color: #fff;
             cursor: pointer;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
         }
 
         .button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            background-color: var(--button-hover-dark);
         }
 
-        .button:active {
-            transform: translateY(0);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        .light-mode .button:hover {
+            background-color: var(--button-hover-light);
         }
 
         .toggle-mode {
@@ -87,7 +97,12 @@
             padding: 10px;
             font-size: 1rem;
             cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .toggle-mode:hover {
+            background: var(--primary-color);
+            color: #fff;
         }
 
         .dark-mode .toggle-mode {
@@ -97,28 +112,99 @@
     </style>
 </head>
 
-<body>
-    <button class="toggle-mode" onclick="toggleMode()">☀️</button>
+<body class="dark-mode">
+    <canvas id="particleCanvas"></canvas>
+    <button class="toggle-mode" onclick="toggleMode()">🌙</button>
     <div class="container">
-        <h1>Welcome to the League Predictor Hub</h1>
+        <h1>Welcome to the Predictor Hub</h1>
         <div class="button-container">
             <button class="button"
-                onclick="window.location.href='https://apex4710.github.io/champions-league-predictor/'">Champions League
-                Predictor</button>
+                onclick="window.location.href='https://apex4710.github.io/champions-league-predictor/'">
+                Champions League Predictor
+            </button>
+            <button class="button" onclick="window.location.href='https://apex4710.github.io/europa-league-predictor/'">
+                Europa League Predictor
+            </button>
             <button class="button"
-                onclick="window.location.href='https://apex4710.github.io/europa-league-predictor/'">Europa League
-                Predictor</button>
-            <button class="button"
-                onclick="window.location.href='https://apex4710.github.io/conference-league-predictor/'">Conference
-                League Predictor</button>
+                onclick="window.location.href='https://apex4710.github.io/conference-league-predictor/'">
+                Conference League Predictor
+            </button>
         </div>
     </div>
     <script>
+        // Mode Toggle Logic
+        const mode = localStorage.getItem('mode') || 'dark-mode';
+        document.body.className = mode;
+        const toggleButton = document.querySelector('.toggle-mode');
+        toggleButton.textContent = mode === 'dark-mode' ? '🌙' : '☀️';
+
         function toggleMode() {
-            document.body.classList.toggle('dark-mode');
-            const toggleButton = document.querySelector('.toggle-mode');
-            toggleButton.textContent = document.body.classList.contains('dark-mode') ? '🌙' : '☀️';
+            if (document.body.classList.contains('dark-mode')) {
+                document.body.classList.replace('dark-mode', 'light-mode');
+                toggleButton.textContent = '☀️';
+                localStorage.setItem('mode', 'light-mode');
+            } else {
+                document.body.classList.replace('light-mode', 'dark-mode');
+                toggleButton.textContent = '🌙';
+                localStorage.setItem('mode', 'dark-mode');
+            }
         }
+
+        // Particle Background Animation
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        const particles = [];
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.radius = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * 2 - 1;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                ctx.fill();
+                ctx.closePath();
+            }
+        }
+
+        function initParticles() {
+            for (let i = 0; i < 100; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
     </script>
 </body>
 
