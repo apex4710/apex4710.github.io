@@ -1,0 +1,117 @@
+/* Variables */
+:root {
+  --bg-color-light: #e8f4f8;
+  --text-color-light: #333;
+  --bg-color-dark: #1c1c28;
+  --text-color-dark: #f0f0f0;
+  --primary-color: #4caf50;
+  --secondary-color: #66bb6a;
+  --button-hover-dark: #3e8e41;
+  --button-hover-light: #3a7c38;
+  --font-family: "Montserrat", sans-serif; /* Added a custom font */
+}
+
+/* Global Styles */
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark/Light Mode */
+.dark-mode {
+  background-color: var(--bg-color-dark);
+  color: var(--text-color-dark);
+}
+
+.light-mode {
+  background-color: var(--bg-color-light);
+  color: var(--text-color-light);
+}
+
+/* Layout */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; /* Ensure content fills the viewport */
+  text-align: center;
+}
+
+/* Heading */
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Button Container */
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem; /* Adjusted spacing */
+  justify-content: center;
+}
+
+/* Buttons */
+.button {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(
+    45deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  color: #fff;
+  text-decoration: none; /* Remove default underline for links */
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease,
+    background-color 0.3s ease;
+}
+
+/* Button Hover Effects */
+.button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.light-mode .button:hover {
+  background-color: var(--button-hover-light);
+}
+
+/* Toggle Mode Button */
+.toggle-mode {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background: none;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  border-radius: 50%;
+  padding: 1rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.toggle-mode:hover {
+  background: var(--primary-color);
+  color: #fff;
+}
+
+.dark-mode .toggle-mode {
+  background: var(--primary-color);
+  color: #fff;
+}
+
+/* Particle Canvas */
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
