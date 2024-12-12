@@ -25,6 +25,7 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
+  padding: 0 1rem; /* Add padding to prevent content from touching screen edges */
 }
 
 /* Dark/Light Mode */
@@ -45,6 +46,7 @@ body {
   text-align: center;
   padding: 2rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+  max-width: 100%; /* Ensure the container does not overflow on mobile */
 }
 
 /* Heading */
@@ -58,15 +60,16 @@ h1 {
 /* Button Container */
 .button-container {
   display: flex;
-  gap: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem; /* Reduced gap for better fit on smaller screens */
   justify-content: center;
   margin-top: 2rem; /* Add some space between heading and buttons */
 }
 
 /* Buttons */
 .button {
-  padding: 1rem 2rem;
-  font-size: 1.1rem; /* Slightly increase font size */
+  padding: 1rem 1.5rem; /* Adjust padding for smaller screens */
+  font-size: 1rem; /* Adjust font size for better readability on mobile */
   font-weight: bold;
   border: none;
   border-radius: 10px; /* Increase border radius for a softer look */
@@ -100,14 +103,14 @@ h1 {
 /* Toggle Mode Button */
 .toggle-mode {
   position: absolute;
-  top: 2rem;
-  right: 2rem;
+  top: 1rem;
+  right: 1rem;
   background: none;
   border: 2px solid var(--primary-color);
   color: var(--primary-color);
   border-radius: 50%;
-  padding: 1rem;
-  font-size: 1.2rem;
+  padding: 0.5rem; /* Adjust padding for better fit on mobile */
+  font-size: 1rem; /* Adjust font size */
   cursor: pointer;
   transition: background-color var(--transition-duration)
       var(--transition-easing),
@@ -159,4 +162,29 @@ canvas {
     rgba(255, 255, 255, 0.2),
     rgba(255, 255, 255, 0)
   );
+}
+
+/* Media Queries for Mobile Responsiveness */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem; /* Adjust font size for smaller screens */
+  }
+
+  .button-container {
+    flex-direction: column; /* Stack buttons vertically on smaller screens */
+    gap: 1rem; /* Adjust gap */
+  }
+
+  .button {
+    width: 100%; /* Full width buttons for mobile */
+    padding: 0.75rem 1.5rem; /* Adjust padding */
+    font-size: 1rem; /* Adjust font size */
+  }
+
+  .toggle-mode {
+    top: 0.5rem; /* Adjust position */
+    right: 0.5rem;
+    padding: 0.5rem; /* Adjust padding */
+    font-size: 1rem; /* Adjust font size */
+  }
 }
