@@ -8,25 +8,32 @@
   --secondary-color: #66bb6a;
   --button-hover-dark: #3e8e41;
   --button-hover-light: #3a7c38;
-  --font-family: "Montserrat", sans-serif; /* Added a custom font */
+  --font-family: "Montserrat", sans-serif; /* Or your preferred font */
+  --transition-duration: 0.3s;
+  --transition-easing: ease;
 }
 
 /* Global Styles */
 body {
   margin: 0;
   font-family: var(--font-family);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color var(--transition-duration)
+      var(--transition-easing),
+    color var(--transition-duration) var(--transition-easing);
+  overflow-x: hidden; /* Prevent horizontal scrollbar */
 }
 
 /* Dark/Light Mode */
 .dark-mode {
   background-color: var(--bg-color-dark);
   color: var(--text-color-dark);
+  background: linear-gradient(to bottom right, #1c1c28, #232330);
 }
 
 .light-mode {
   background-color: var(--bg-color-light);
   color: var(--text-color-light);
+  background: linear-gradient(to bottom right, #f0f8ff, #e8f4f8);
 }
 
 /* Layout */
@@ -35,48 +42,55 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh; /* Ensure content fills the viewport */
+  min-height: 100vh;
   text-align: center;
+  padding: 2rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
 }
 
 /* Heading */
 h1 {
-  font-size: 2.5rem;
+  font-size: 3rem; /* Increase font size for better visibility */
   margin-bottom: 2rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  color: var(--primary-color); /* Use primary color for heading */
 }
 
 /* Button Container */
 .button-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5rem; /* Adjusted spacing */
+  gap: 1.5rem;
   justify-content: center;
+  margin-top: 2rem; /* Add some space between heading and buttons */
 }
 
 /* Buttons */
 .button {
   padding: 1rem 2rem;
-  font-size: 1rem;
+  font-size: 1.1rem; /* Slightly increase font size */
   font-weight: bold;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px; /* Increase border radius for a softer look */
   background: linear-gradient(
     45deg,
     var(--primary-color),
     var(--secondary-color)
   );
   color: #fff;
-  text-decoration: none; /* Remove default underline for links */
+  text-decoration: none;
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease,
-    background-color 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
 }
 
-/* Button Hover Effects */
 .button:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.dark-mode .button:hover {
+  background-color: var(--button-hover-dark);
 }
 
 .light-mode .button:hover {
@@ -95,7 +109,9 @@ h1 {
   padding: 1rem;
   font-size: 1.2rem;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color var(--transition-duration)
+      var(--transition-easing),
+    color var(--transition-duration) var(--transition-easing);
 }
 
 .toggle-mode:hover {
@@ -114,4 +130,47 @@ canvas {
   top: 0;
   left: 0;
   z-index: -1;
+  width: 100%;
+  height: 100%;
+}
+
+/* Additional Styles for Better Visuals */
+.container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0)
+  );
+  z-index: -1;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0)
+  );
+  z-index: -1;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.button:hover::before {
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0)
+  );
 }
