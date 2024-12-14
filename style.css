@@ -1,103 +1,146 @@
 /* Variables */
 :root {
-  --bg-color-light: #e8f4f8;
-  --text-color-light: #333;
-  --bg-color-dark: #1c1c28;
-  --text-color-dark: #f0f0f0;
-  --primary-color: #4caf50;
-  --secondary-color: #66bb6a;
-  --button-hover-dark: #3e8e41;
-  --button-hover-light: #3a7c38;
-  --font-family: "Montserrat", sans-serif; /* Or your preferred font */
+  --bg-color-light: #f7f9fc;
+  --text-color-light: #2c3e50;
+  --bg-color-dark: #13141a;
+  --text-color-dark: #ecf0f1;
+  --primary-color: #3498db;
+  --secondary-color: #5dade2;
+  --accent-color: #e74c3c;
+  --button-hover-dark: #2980b9;
+  --button-hover-light: #2874a6;
+  --font-family: "Poppins", sans-serif;
   --transition-duration: 0.3s;
   --transition-easing: ease;
+  --container-max-width: 600px;
+  --card-bg-light: #ffffff;
+  --card-bg-dark: #1e202a;
+  --card-border-radius: 16px;
+  --card-box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
 /* Global Styles */
 body {
   margin: 0;
   font-family: var(--font-family);
+  background-color: var(--bg-color-light);
+  color: var(--text-color-light);
   transition: background-color var(--transition-duration)
       var(--transition-easing),
     color var(--transition-duration) var(--transition-easing);
-  overflow-x: hidden; /* Prevent horizontal scrollbar */
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  padding: 0 1rem; /* Add padding to prevent content from touching screen edges */
+  padding: 1rem;
+  overflow-x: hidden;
 }
 
 /* Dark/Light Mode */
-.dark-mode {
+body.dark-mode {
   background-color: var(--bg-color-dark);
   color: var(--text-color-dark);
-  background: linear-gradient(to bottom right, #1c1c28, #232330);
+  background: linear-gradient(to bottom right, #13141a, #1a1b23);
 }
 
-.light-mode {
+body.light-mode {
   background-color: var(--bg-color-light);
   color: var(--text-color-light);
-  background: linear-gradient(to bottom right, #f0f8ff, #e8f4f8);
+  background: linear-gradient(to bottom right, #f7f9fc, #ffffff);
 }
 
-/* Layout */
+/* Layout Container */
 .container {
-  text-align: center;
   padding: 2rem;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
-  max-width: 100%; /* Ensure the container does not overflow on mobile */
+  max-width: var(--container-max-width);
+  width: 100%;
+  background: var(--card-bg-light);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-box-shadow);
+  transition: background-color var(--transition-duration)
+      var(--transition-easing),
+    box-shadow var(--transition-duration) var(--transition-easing);
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+}
+
+body.dark-mode .container {
+  background: var(--card-bg-dark);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
 /* Heading */
 h1 {
-  font-size: 3rem; /* Increase font size for better visibility */
-  margin-bottom: 2rem;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-  color: var(--primary-color); /* Use primary color for heading */
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--primary-color);
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+  letter-spacing: 1px;
+}
+
+/* Decorative Gradient Border */
+.container::before {
+  content: "";
+  position: absolute;
+  top: -5%;
+  left: -5%;
+  width: 110%;
+  height: 110%;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  z-index: -1;
+  filter: blur(20px);
 }
 
 /* Button Container */
 .button-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem; /* Reduced gap for better fit on smaller screens */
+  gap: 1rem;
   justify-content: center;
-  margin-top: 2rem; /* Add some space between heading and buttons */
+  margin-top: 1.5rem;
 }
 
 /* Buttons */
 .button {
-  padding: 1rem 1.5rem; /* Adjust padding for smaller screens */
-  font-size: 1rem; /* Adjust font size for better readability on mobile */
-  font-weight: bold;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
   border: none;
-  border-radius: 10px; /* Increase border radius for a softer look */
+  border-radius: 12px;
   background: linear-gradient(
-    45deg,
+    135deg,
     var(--primary-color),
     var(--secondary-color)
   );
   color: #fff;
-  text-decoration: none;
   cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.05);
-  transition: all 0.2s ease;
-  position: relative; /* Ensure gradients are correctly aligned */
-  z-index: 1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transition: transform var(--transition-duration) var(--transition-easing),
+    box-shadow var(--transition-duration) var(--transition-easing),
+    background var(--transition-duration) var(--transition-easing);
 }
 
 .button:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(
+    135deg,
+    var(--secondary-color),
+    var(--accent-color)
+  );
 }
 
-.dark-mode .button:hover {
-  background-color: var(--button-hover-dark);
+body.dark-mode .button:hover {
+  background: var(--button-hover-dark);
 }
 
-.light-mode .button:hover {
-  background-color: var(--button-hover-light);
+body.light-mode .button:hover {
+  background: var(--button-hover-light);
 }
 
 /* Toggle Mode Button */
@@ -105,24 +148,19 @@ h1 {
   position: absolute;
   top: 1rem;
   right: 1rem;
-  background: none;
   border: 2px solid var(--primary-color);
+  background: none;
   color: var(--primary-color);
   border-radius: 50%;
-  padding: 0.5rem; /* Adjust padding for better fit on mobile */
-  font-size: 1rem; /* Adjust font size */
+  padding: 0.5rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: background-color var(--transition-duration)
       var(--transition-easing),
-    color var (--transition-duration) var(--transition-easing);
+    color var(--transition-duration) var(--transition-easing);
 }
 
 .toggle-mode:hover {
-  background: var(--primary-color);
-  color: #fff;
-}
-
-.dark-mode .toggle-mode {
   background: var(--primary-color);
   color: #fff;
 }
@@ -137,71 +175,42 @@ canvas {
   height: 100%;
 }
 
-/* Additional Styles for Better Visuals */
-.container::before,
-.button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    to bottom right,
-    rgba(255, 255, 255, 0.1),
-    rgba(255, 255, 255, 0)
-  );
-  z-index: -1;
-  border-radius: 10px;
-  transition: all 0.2s ease;
-}
-
-.button:hover::before {
-  background: linear-gradient(
-    to bottom right,
-    rgba(255, 255, 255, 0.2),
-    rgba(255, 255, 255, 0)
-  );
-}
-
-/* Media Queries for Mobile Responsiveness */
+/* Media Queries for Responsiveness */
 @media (max-width: 768px) {
   h1 {
-    font-size: 2.5rem; /* Adjust font size for smaller screens */
+    font-size: 2rem;
   }
 
   .button-container {
-    flex-direction: column; /* Stack buttons vertically on smaller screens */
-    gap: 1rem; /* Adjust gap */
+    flex-direction: column;
   }
 
   .button {
-    width: 100%; /* Full width buttons for mobile */
-    padding: 0.75rem 1.5rem; /* Adjust padding */
-    font-size: 1rem; /* Adjust font size */
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
   }
 
   .toggle-mode {
-    top: 0.5rem; /* Adjust position */
-    right: 0.5rem;
-    padding: 0.5rem; /* Adjust padding */
-    font-size: 1rem; /* Adjust font size */
+    top: 0.75rem;
+    right: 0.75rem;
+    padding: 0.5rem;
+    font-size: 0.9rem;
   }
 }
 
-/* Media Queries for iPhone */
 @media (max-width: 375px) {
   h1 {
-    font-size: 2rem; /* Further adjust font size for smaller iPhone screens */
+    font-size: 1.75rem;
   }
 
   .button {
-    font-size: 0.9rem; /* Adjust font size for smaller screens */
-    padding: 0.5rem 1rem; /* Further adjust padding */
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
   }
 
   .toggle-mode {
-    font-size: 0.9rem; /* Adjust font size */
-    padding: 0.5rem; /* Adjust padding */
+    font-size: 0.85rem;
+    padding: 0.4rem;
   }
 }
