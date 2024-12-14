@@ -4,54 +4,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Predict outcomes for UEFA competitions. Access Champions League, Europa League, and Conference League predictors.">
-    <meta name="author" content="apex4710">
     <title>Predictor Hub</title>
     <link rel="stylesheet" href="style.css">
-
-    <!-- Link to a Google Font for better typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
-    <!-- Favicon -->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 
 <body class="dark-mode">
-    <!-- Particle Canvas Background -->
-    <div class="canvas-container" aria-hidden="true">
+    <!-- Particle Background -->
+    <div class="canvas-container">
         <canvas id="particleCanvas"></canvas>
     </div>
 
     <!-- Toggle Mode Button -->
-    <button class="toggle-mode" aria-label="Toggle Dark Mode" title="Toggle Dark Mode">
-        🌙
-    </button>
+    <button class="toggle-mode" aria-label="Toggle dark mode">🌙</button>
 
     <!-- Main Content -->
-    <div class="container">
+    <div class="container glass-effect">
         <h1>Welcome to the Predictor Hub</h1>
-        <p>Explore prediction tools for your favorite UEFA competitions!</p>
-
-        <!-- Button Links -->
+        <p>Explore predictors for your favorite football tournaments.</p>
         <div class="button-container">
-            <a href="https://apex4710.github.io/champions-league-predictor/" class="button" target="_blank"
-                rel="noopener noreferrer">
+            <!-- Update the button classes to match the new CSS styles -->
+            <a href="https://apex4710.github.io/champions-league-predictor/" class="button champions-league">
                 Champions League Predictor
             </a>
-            <a href="https://apex4710.github.io/europa-league-predictor/" class="button" target="_blank"
-                rel="noopener noreferrer">
+            <a href="https://apex4710.github.io/europa-league-predictor/" class="button europa-league">
                 Europa League Predictor
             </a>
-            <a href="https://apex4710.github.io/conference-league-predictor/" class="button" target="_blank"
-                rel="noopener noreferrer">
+            <a href="https://apex4710.github.io/conference-league-predictor/" class="button conference-league">
                 Conference League Predictor
             </a>
+
         </div>
     </div>
 
-    <!-- JavaScript -->
-    <script src="script.js" defer></script>
+    <!-- Script -->
+    <script src="script.js"></script>
 </body>
 
 </html>

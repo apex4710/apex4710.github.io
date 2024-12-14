@@ -1,21 +1,21 @@
-// Retrieve and apply the saved mode (dark or light) from localStorage
-const savedMode = localStorage.getItem("mode") || "dark-mode";
-document.body.classList.add(savedMode);
-
+// Mode Toggle Logic
+const mode = localStorage.getItem("mode") || "dark-mode";
+document.body.classList.add(mode);
 const toggleButton = document.querySelector(".toggle-mode");
-toggleButton.textContent = savedMode === "dark-mode" ? "🌙" : "☀️";
+toggleButton.textContent = mode === "dark-mode" ? "🌙" : "☀️";
 
-// Toggle between dark and light modes
 function toggleMode() {
-  const isDarkMode = document.body.classList.contains("dark-mode");
-
-  // Toggle classes and update button text
-  document.body.classList.toggle("dark-mode", !isDarkMode);
-  document.body.classList.toggle("light-mode", isDarkMode);
-  toggleButton.textContent = isDarkMode ? "☀️" : "🌙";
-
-  // Save the current mode to localStorage
-  localStorage.setItem("mode", isDarkMode ? "light-mode" : "dark-mode");
+  if (document.body.classList.contains("dark-mode")) {
+    document.body.classList.remove("dark-mode");
+    document.body.classList.add("light-mode");
+    toggleButton.textContent = "☀️";
+    localStorage.setItem("mode", "light-mode");
+  } else {
+    document.body.classList.remove("light-mode");
+    document.body.classList.add("dark-mode");
+    toggleButton.textContent = "🌙";
+    localStorage.setItem("mode", "dark-mode");
+  }
 
   // Redraw particles with updated colors
   particles.forEach((particle) => particle.draw());
@@ -25,22 +25,16 @@ function toggleMode() {
 const canvas = document.getElementById("particleCanvas");
 const ctx = canvas.getContext("2d");
 const particles = [];
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-// Adjust canvas size to match the window
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-
-// Particle class for background animation
 class Particle {
-  constructor() {
-    this.reset();
-  }
-
-  reset() {
-    this.x = Math.random() * canvas.width;
-    this.y = Math.random() * canvas.height;
+  constructor(
+    x = Math.random() * canvas.width,
+    y = Math.random() * canvas.height
+  ) {
+    this.x = x;
+    this.y = y;
     this.radius = Math.random() * 3 + 1;
     this.speedX = Math.random() * 2 - 1;
     this.speedY = Math.random() * 2 - 1;
@@ -50,7 +44,6 @@ class Particle {
     this.x += this.speedX;
     this.y += this.speedY;
 
-    // Bounce particles off canvas edges
     if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
     if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
   }
@@ -67,19 +60,16 @@ class Particle {
   }
 }
 
-// Initialize particles
 function initParticles() {
-  particles.length = 0; // Clear existing particles on reinitialization
   for (let i = 0; i < 100; i++) {
     particles.push(new Particle());
   }
 }
 
-// Animation loop
 let lastRenderTime = 0;
+
 function animateParticles(timestamp) {
   if (timestamp - lastRenderTime > 1000 / 30) {
-    // 30 FPS limit
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     particles.forEach((particle) => {
       particle.update();
@@ -90,15 +80,43 @@ function animateParticles(timestamp) {
   requestAnimationFrame(animateParticles);
 }
 
-// Event listeners
+function handleMouseMove(event) {
+  const rect = canvas.getBoundingClientRect();
+  const mouseX = event.clientX - rect.left;
+  const mouseY = event.clientY - rect.top;
+
+  particles.forEach((particle) => {
+    const dx = particle.x - mouseX;
+    const dy = particle.y - mouseY;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+
+    if (distance < 100) {
+      const angle = Math.atan2(dy, dx);
+      particle.speedX -= Math.cos(angle);
+      particle.speedY -= Math.sin(angle);
+    }
+  });
+}
+
+function handleClick(event) {
+  const rect = canvas.getBoundingClientRect();
+  const mouseX = event.clientX - rect.left;
+  const mouseY = event.clientY - rect.top;
+
+  for (let i = 0; i < 20; i++) {
+    particles.push(new Particle(mouseX, mouseY));
+  }
+}
+
+initParticles();
+animateParticles();
+
+canvas.addEventListener("mousemove", handleMouseMove);
+canvas.addEventListener("click", handleClick);
+
 window.addEventListener("resize", () => {
-  resizeCanvas();
-  initParticles();
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 });
 
 toggleButton.addEventListener("click", toggleMode);
-
-// Initial setup
-resizeCanvas();
-initParticles();
-animateParticles();
