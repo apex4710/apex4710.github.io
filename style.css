@@ -1,24 +1,23 @@
 /* Variables */
 :root {
-  --bg-color-light: #3567b2;
-  --text-color-light: #2c3e50;
-  --bg-color-dark: #212331;
-  --text-color-dark: #072c52;
-  --primary-color: #bb0000;
-  --secondary-color: #c4c700;
-  --accent-color: #e74d3c93;
-  --champions-league-color: #1946c1; /* Blue */
-  --europa-league-color: #ff7f0e; /* Orange */
-  --conference-league-color: #2ca02c; /* Green */
-  --header-light: #fcf8f8;
-  --header-dark: #4ef0d0;
+  --bg-color-light: #f5f5f5;
+  --text-color-light: #333;
+  --bg-color-dark: #1e1e1e;
+  --text-color-dark: #ddd;
+  --primary-color: #2d74da;
+  --secondary-color: #2565ae;
+  --button-hover-light: #1f4e7c;
+  --button-hover-dark: #17436b;
+  --champions-league-color: #204798; /* Blue */
+  --europa-league-color: #c85a00; /* Orange */
+  --conference-league-color: #1d8053; /* Green */
   --font-family: "Poppins", sans-serif;
   --transition-duration: 0.3s;
   --transition-easing: ease;
   --container-max-width: 600px;
-  --card-bg-light: rgba(255, 255, 255, 0.673);
-  --card-bg-dark: rgba(30, 32, 42, 0.9);
-  --card-border-radius: 16px;
+  --card-bg: #ffffff;
+  --card-bg-dark: #2b2b2b;
+  --card-border-radius: 12px;
   --card-box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
@@ -39,15 +38,10 @@ body {
   overflow-x: hidden;
 }
 
-/* Dark/Light Mode */
+/* Dark Mode */
 body.dark-mode {
   background-color: var(--bg-color-dark);
   color: var(--text-color-dark);
-}
-
-body.light-mode {
-  background-color: var(--bg-color-light);
-  color: var(--text-color-light);
 }
 
 /* Layout Container */
@@ -55,13 +49,12 @@ body.light-mode {
   padding: 2rem;
   max-width: var(--container-max-width);
   width: 100%;
-  background: var(--card-bg-light);
+  background: var(--card-bg);
   border-radius: var(--card-border-radius);
   box-shadow: var(--card-box-shadow);
   transition: background-color var(--transition-duration)
       var(--transition-easing),
     box-shadow var(--transition-duration) var(--transition-easing);
-  position: relative;
   text-align: center;
   overflow: hidden;
 }
@@ -75,14 +68,8 @@ body.dark-mode .container {
 h1 {
   font-size: 2.5rem;
   margin-bottom: 1.5rem;
-  color: var(--header-light);
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+  color: var(--primary-color);
   letter-spacing: 1px;
-}
-
-body.dark-mode h1 {
-  color: var(--header-dark);
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
 }
 
 /* Particle Canvas */
@@ -95,27 +82,9 @@ canvas {
   height: 100%;
 }
 
-/* Decorative Gradient Border */
-.container::before {
-  content: "";
-  position: absolute;
-  top: -5%;
-  left: -5%;
-  width: 110%;
-  height: 110%;
-  background: linear-gradient(
-    135deg,
-    var(--primary-color),
-    var(--secondary-color)
-  );
-  z-index: -1;
-  filter: blur(20px);
-}
-
 /* Button Container */
 .button-container {
   display: flex;
-  flex-wrap: wrap;
   gap: 1rem;
   justify-content: center;
   margin-top: 1.5rem;
@@ -123,11 +92,13 @@ canvas {
 
 /* Buttons */
 .button {
+  position: relative;
   padding: 0.75rem 1.25rem;
   font-size: 1rem;
   font-weight: 600;
   border: none;
-  border-radius: 12px;
+  border-radius: 8px;
+  background: var(--primary-color);
   color: #fff;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
@@ -136,22 +107,40 @@ canvas {
     background var(--transition-duration) var(--transition-easing);
 }
 
-/* Button Styles */
-.button.champions-league {
+/* Button Indicators */
+.button.champions-league::before,
+.button.europa-league::before,
+.button.conference-league::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 5px;
+  border-radius: 8px 0 0 8px;
+}
+
+.button.champions-league::before {
   background: var(--champions-league-color);
 }
 
-.button.europa-league {
+.button.europa-league::before {
   background: var(--europa-league-color);
 }
 
-.button.conference-league {
+.button.conference-league::before {
   background: var(--conference-league-color);
 }
 
+/* Button Hover Effects */
 .button:hover {
-  transform: translateY(-3px) scale(1.05);
+  transform: translateY(-3px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  background: var(--button-hover-light);
+}
+
+body.dark-mode .button:hover {
+  background: var(--button-hover-dark);
 }
 
 /* Toggle Mode Button */
@@ -159,12 +148,12 @@ canvas {
   position: absolute;
   top: 1rem;
   right: 1rem;
-  border: 2px solid var(--primary-color);
-  background: none;
-  color: var(--primary-color);
+  border: none;
+  background: var(--primary-color);
+  color: #fff;
   border-radius: 50%;
   padding: 0.5rem;
-  font-size: 1rem;
+  font-size: 1.2rem;
   cursor: pointer;
   transition: background-color var(--transition-duration)
       var(--transition-easing),
@@ -172,98 +161,11 @@ canvas {
 }
 
 .toggle-mode:hover {
-  background: var(--primary-color);
-  color: #fff;
+  background: var(--button-hover-light);
 }
 
-/* Gradient Animations */
-@keyframes gradientAnimation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-body {
-  background: linear-gradient(
-    -45deg,
-    var(--primary-color),
-    var(--secondary-color),
-    var(--accent-color)
-  );
-  background-size: 400% 400%;
-  animation: gradientAnimation 15s ease infinite;
-}
-
-body.dark-mode {
-  background: linear-gradient(-45deg, #13141a, #1a1b23, #2c3e50);
-  background-size: 400% 400%;
-  animation: gradientAnimation 15s ease infinite;
-}
-
-.button {
-  background: linear-gradient(
-    135deg,
-    var(--primary-color),
-    var(--secondary-color)
-  );
-  background-size: 200% 200%;
-  transition: background-position var(--transition-duration)
-    var(--transition-easing);
-}
-
-.button:hover {
-  background-position: right center;
-}
-
-/* Glassmorphism */
-.glass-effect {
-  backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: var(--card-border-radius);
-  box-shadow: var(--card-box-shadow);
-}
-
-/* Page Transitions */
-@keyframes pageTransitionIn {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes pageTransitionOut {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-}
-
-.container {
-  animation: pageTransitionIn 0.5s var(--transition-easing);
-}
-
-.container.fade-out {
-  animation: pageTransitionOut 0.5s var(--transition-easing);
-}
-
-/* Button Hover Effects */
-.button:hover {
-  transform: perspective(1000px) rotateX(10deg);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 0 10px var(--accent-color);
+body.dark-mode .toggle-mode:hover {
+  background: var(--button-hover-dark);
 }
 
 /* Media Queries for Responsiveness */
@@ -286,7 +188,7 @@ body.dark-mode {
     top: 0.75rem;
     right: 0.75rem;
     padding: 0.5rem;
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 }
 

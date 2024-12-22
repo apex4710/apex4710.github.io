@@ -29,12 +29,9 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 class Particle {
-  constructor(
-    x = Math.random() * canvas.width,
-    y = Math.random() * canvas.height
-  ) {
-    this.x = x;
-    this.y = y;
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
     this.radius = Math.random() * 3 + 1;
     this.speedX = Math.random() * 2 - 1;
     this.speedY = Math.random() * 2 - 1;
@@ -61,7 +58,7 @@ class Particle {
 }
 
 function initParticles() {
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 200; i++) {
     particles.push(new Particle());
   }
 }
@@ -80,39 +77,8 @@ function animateParticles(timestamp) {
   requestAnimationFrame(animateParticles);
 }
 
-function handleMouseMove(event) {
-  const rect = canvas.getBoundingClientRect();
-  const mouseX = event.clientX - rect.left;
-  const mouseY = event.clientY - rect.top;
-
-  particles.forEach((particle) => {
-    const dx = particle.x - mouseX;
-    const dy = particle.y - mouseY;
-    const distance = Math.sqrt(dx * dx + dy * dy);
-
-    if (distance < 100) {
-      const angle = Math.atan2(dy, dx);
-      particle.speedX -= Math.cos(angle);
-      particle.speedY -= Math.sin(angle);
-    }
-  });
-}
-
-function handleClick(event) {
-  const rect = canvas.getBoundingClientRect();
-  const mouseX = event.clientX - rect.left;
-  const mouseY = event.clientY - rect.top;
-
-  for (let i = 0; i < 20; i++) {
-    particles.push(new Particle(mouseX, mouseY));
-  }
-}
-
 initParticles();
 animateParticles();
-
-canvas.addEventListener("mousemove", handleMouseMove);
-canvas.addEventListener("click", handleClick);
 
 window.addEventListener("resize", () => {
   canvas.width = window.innerWidth;
